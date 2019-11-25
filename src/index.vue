@@ -413,13 +413,13 @@ export default {
           this.$set(
             this.responseDatas,
             this.openedApiIndex,
-            JSON.stringify(msg.reponse ? msg.response.data : msg, null, 2)
+            JSON.stringify(msg.response ? msg.response.data : msg, null, 2)
           );
           // 页面不渲染不刷新临时解决方案
           this.test = Math.random();
           this.$message({
             type: "error",
-            message: "请求出错，" + msg.reponse ? msg.response.data : msg
+            message: "请求出错，" + (msg.response ? msg.response.data : msg)
           });
           this.loading = null;
           this.requestPreTimes[this.openedApiIndex] =

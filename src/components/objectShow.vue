@@ -16,6 +16,13 @@
           <div v-if="key === 'type'">
             <span v-if="value!=='object'">{{value}}</span>
             <span v-if="info['format']" style="color:#888;">&nbsp;(${{info['format']}})</span>
+            <span
+              style="color:#888;"
+              v-if="value=='array' && info['items'] && (info['items'].title || info['items'].type)"
+            >&nbsp;({{info['items'].title || info['items'].type}})</span>
+            <span
+              v-if="value==='object' && info['object'] && info['object'].title"
+            >({{info['object'].title}})</span>
           </div>
           <div v-else-if="key === 'example'">example: {{value}}</div>
           <div v-else-if="key === 'enum'">
@@ -30,14 +37,17 @@
             </span>
           </div>
           <div v-else-if="key === 'object'">
-            <div style="font-weight: 600; margin-top: 10px;margin-bottom: 10px;">Object</div>
+            <div style="color:#666; font-weight: 600; margin-top: 10px;margin-bottom: 10px;">Object</div>
             <object-show :count="curCount" :obj="info['object']" style="margin-top:10px;"></object-show>
           </div>
           <div v-else-if="key === 'items'">
+            <div
+              v-if="info['items'].type === 'object'"
+              style="color:#666; font-weight: 600; margin-top: 6px;margin-bottom: 18px;"
+            >Object</div>
             <object-show :count="curCount" :obj="info['items']" style="margin-top:10px;"></object-show>
           </div>
           <div v-else-if="key === '$ref'" style="display:none;"></div>
-          <div v-else-if="key === 'title'" style="display:none;"></div>
           <div v-else-if="key === 'required'" style="display:none;"></div>
           <div v-else-if="key === 'properties'" style="display:none;"></div>
           <div v-else>{{value}}</div>
@@ -69,7 +79,7 @@ export default {
     margin-bottom: 20px;
     .name {
       display: inline-block;
-      width: 250px;
+      width: 230px;
     }
   }
   .property {
@@ -79,8 +89,8 @@ export default {
     margin-bottom: 10px;
     font-size: 16px;
     .name {
-      width: 250px;
-      min-width: 250px;
+      width: 230px;
+      min-width: 230px;
       color: #333;
       font-weight: 600;
     }
