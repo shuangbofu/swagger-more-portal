@@ -1,5 +1,5 @@
 <template>
-  <div class="obj" v-if="count===undefined || (count !==undefined && count <3)">
+  <div class="obj">
     <div class="description" v-if="obj.description">
       <div class="name">description:</div>
       <span>{{obj.description}}</span>
@@ -18,8 +18,8 @@
             <span v-if="info['format']" style="color:#888;">&nbsp;(${{info['format']}})</span>
             <span
               style="color:#888;"
-              v-if="value=='array' && info['items'] && (info['items'].title || info['items'].type)"
-            >&nbsp;({{info['items'].title || info['items'].type}})</span>
+              v-if="value=='array' && info['items'] && (info['items'].title || info['items'].type || info['items'].$ref)"
+            >&nbsp;({{info['items'].title || info['items'].type || info['items'].$ref.replace('#/definitions/','')}})</span>
             <span
               v-if="value==='object' && info['object'] && info['object'].title"
             >({{info['object'].title}})</span>
@@ -63,6 +63,7 @@ export default {
   components: { ObjectShow: () => import("@/components/objectShow.vue") },
   computed: {
     curCount() {
+      // TODO 暂时不需要
       return (this.count || 0) + 1;
     }
   }
@@ -79,7 +80,7 @@ export default {
     margin-bottom: 20px;
     .name {
       display: inline-block;
-      width: 230px;
+      width: 210px;
     }
   }
   .property {
@@ -89,8 +90,8 @@ export default {
     margin-bottom: 10px;
     font-size: 16px;
     .name {
-      width: 230px;
-      min-width: 230px;
+      width: 210px;
+      min-width: 210px;
       color: #333;
       font-weight: 600;
     }

@@ -390,7 +390,8 @@
       ],
       "properties": {
         "exeArgs": {
-          "type": "string"
+          "type": "string",
+          "description": "自定义参数"
         },
         "id": {
           "type": "integer",
@@ -398,7 +399,8 @@
           "description": "任务配置ID"
         },
         "mainClass": {
-          "type": "string"
+          "type": "string",
+          "description": "mainClass"
         },
         "nodePid": {
           "type": "integer",
@@ -415,42 +417,49 @@
         },
         "sideTexts": {
           "type": "array",
+          "description": "维表代码集合",
           "items": {
             "type": "string"
           }
         },
         "sides": {
           "type": "array",
+          "description": "维表配置集合",
           "items": {
             "$ref": "#/definitions/TaskSideVO"
           }
         },
         "sinkTexts": {
           "type": "array",
+          "description": "结果表代码集合",
           "items": {
             "type": "string"
           }
         },
         "sinks": {
           "type": "array",
+          "description": "结果表配置集合",
           "items": {
             "$ref": "#/definitions/TaskSinkVO"
           }
         },
         "sourceTexts": {
           "type": "array",
+          "description": "源表代码集合",
           "items": {
             "type": "string"
           }
         },
         "sources": {
           "type": "array",
+          "description": "源表配置集合",
           "items": {
             "$ref": "#/definitions/TaskSourceVO"
           }
         },
         "sqlText": {
-          "type": "string"
+          "type": "string",
+          "description": "sql文本"
         },
         "sqlTexts": {
           "type": "array",
@@ -460,7 +469,8 @@
           }
         },
         "taskDesc": {
-          "type": "string"
+          "type": "string",
+          "description": "任务描述"
         },
         "taskId": {
           "type": "integer",
@@ -468,14 +478,16 @@
           "description": "任务ID"
         },
         "taskName": {
-          "type": "string"
+          "type": "string",
+          "description": "任务名称"
         },
         "taskParams": {
           "type": "string",
           "description": "环境参数"
         },
         "userKeyValue": {
-          "type": "string"
+          "type": "string",
+          "description": "自定义键值对"
         },
         "version": {
           "type": "integer",
@@ -495,7 +507,8 @@
       "properties": {
         "nodePid": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "节点ID"
         },
         "taskDesc": {
           "type": "string",
@@ -507,7 +520,7 @@
         },
         "taskType": {
           "type": "string",
-          "example": "FlinkSQL",
+          "example": "FINK_SQL",
           "description": "任务类型",
           "enum": [
             "FINK_SQL",

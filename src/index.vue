@@ -502,9 +502,6 @@ export default {
     getParameterDefaultStructure(parameter) {
       switch (parameter.type) {
         case "array":
-          if (this.fetchDefinitionTimes[parameter.items.$ref] > 3) {
-            return parameter;
-          }
           return {
             ...parameter,
             items: this.getParameterDefaultStructure(parameter.items)
@@ -520,7 +517,11 @@ export default {
         default:
           if (parameter.$ref) {
             const _class = { ...this.getDefinitionObj(parameter.$ref) };
-            return { type: "object", ..._class, object: _class };
+            return {
+              type: "object",
+              ...this.getParameterDefaultStructure(_class),
+              object: _class
+            };
           }
           return parameter;
       }
@@ -603,13 +604,17 @@ export default {
       }
       // 递归嵌套取对象在取对象的时候做限制
       this.fetchDefinitionTimes[refName] += 1;
-      if (this.fetchDefinitionTimes[refName] > 2) {
-        return {};
-      }
+
       if (refName.includes(".")) {
         refName = refName.slice(refName.lastIndexOf(".") + 1);
       }
-      return this.data.definitions[refName.replace("#/definitions/", "")];
+      const obj = this.data.definitions[refName.replace("#/definitions/", "")];
+      if (this.fetchDefinitionTimes[refName] > 2) {
+        return {
+          title: obj.title
+        };
+      }
+      return obj;
     },
     removeTab(val) {
       const index = this.apiIndexes.findIndex(index => index === val);
