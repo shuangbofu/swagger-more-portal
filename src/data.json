@@ -1,0 +1,774 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "核心基于Springfox Swagger2扩展",
+    "version": "0.1.1",
+    "title": "Dubbo API"
+  },
+  "host": "localhost:8822",
+  "basePath": "/dubbo",
+  "tags": [
+    {
+      "name": "任务相关接口",
+      "description": "Test Service Impl"
+    },
+    {
+      "name": "其他接口",
+      "description": "Test 2 Service Impl"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "text/plain"
+  ],
+  "paths": {
+    "/Test2Service/getCount": {
+      "post": {
+        "tags": [
+          "其他接口"
+        ],
+        "summary": "获取任务数",
+        "operationId": "getCountUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/Test2Service/getStatus": {
+      "post": {
+        "tags": [
+          "其他接口"
+        ],
+        "summary": "获取各个状态任务数",
+        "operationId": "getStatusUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/add": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "新增任务",
+        "operationId": "addUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "form",
+            "description": "任务表单",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TaskForm"
+            },
+            "className": "com.tuya.bling.stream.vo.form.TaskForm"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/editTask": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "编辑任务",
+        "operationId": "editTaskUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "taskConfForm",
+            "description": "任务配置表单",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TaskConfForm"
+            },
+            "className": "com.tuya.bling.stream.vo.form.TaskConfForm"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/getSqlTemplate": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "获取Sql模板",
+        "operationId": "getSqlTemplateUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "param",
+            "description": "模板参数",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TemplateParam"
+            },
+            "className": "com.tuya.bling.stream.vo.form.TemplateParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/getTaskList": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "获取所有任务列表",
+        "operationId": "getTaskListUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TaskSKetchVO"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/nodeTest": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "循环引用测试",
+        "operationId": "nodeTestUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "parent",
+            "description": "父节点",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Node"
+            },
+            "className": "com.tuya.bling.api.Node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Node"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/TestService/remove": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "删除任务",
+        "operationId": "removeUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "主键",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false,
+            "className": "java.lang.Long"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "ColumnVO": {
+      "type": "object",
+      "properties": {
+        "column": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.form.ColumnVO"
+    },
+    "Node": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "description": "子节点结合",
+          "items": {
+            "$ref": "#/definitions/Node"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "节点ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "节点名称"
+        }
+      },
+      "title": "com.tuya.bling.api.Node",
+      "description": "测试节点"
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "createUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deleted": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gmtCreate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gmtModified": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "modifyUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nodePid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskDesc": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "taskType": {
+          "type": "string",
+          "enum": [
+            "FINK_SQL",
+            "FINK"
+          ]
+        }
+      },
+      "title": "com.tuya.bling.stream.persist.model.Task",
+      "description": "任务Model"
+    },
+    "TaskConfForm": {
+      "type": "object",
+      "required": [
+        "id",
+        "taskId",
+        "version"
+      ],
+      "properties": {
+        "exeArgs": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "任务配置ID"
+        },
+        "mainClass": {
+          "type": "string"
+        },
+        "nodePid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "节点ID"
+        },
+        "resourceIds": {
+          "type": "array",
+          "description": "资源ID集合",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "sideTexts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskSideVO"
+          }
+        },
+        "sinkTexts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sinks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskSinkVO"
+          }
+        },
+        "sourceTexts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskSourceVO"
+          }
+        },
+        "sqlText": {
+          "type": "string"
+        },
+        "sqlTexts": {
+          "type": "array",
+          "description": "sql集合",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskDesc": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "任务ID"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "taskParams": {
+          "type": "string",
+          "description": "环境参数"
+        },
+        "userKeyValue": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "任务配置版本"
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.form.TaskConfForm",
+      "description": "任务配置表单"
+    },
+    "TaskForm": {
+      "type": "object",
+      "required": [
+        "taskName",
+        "taskType"
+      ],
+      "properties": {
+        "nodePid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskDesc": {
+          "type": "string",
+          "description": "任务描述"
+        },
+        "taskName": {
+          "type": "string",
+          "description": "任务名称"
+        },
+        "taskType": {
+          "type": "string",
+          "example": "FlinkSQL",
+          "description": "任务类型",
+          "enum": [
+            "FINK_SQL",
+            "FINK"
+          ]
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.form.TaskForm",
+      "description": "任务表单"
+    },
+    "TaskSKetchVO": {
+      "type": "object",
+      "properties": {
+        "createUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createUserName": {
+          "type": "string",
+          "description": "创建用户名称"
+        },
+        "deleted": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gmtCreate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gmtModified": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "modifyUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nodePid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "taskDesc": {
+          "type": "string"
+        },
+        "taskName": {
+          "type": "string"
+        },
+        "taskType": {
+          "type": "string",
+          "description": "任务类型",
+          "enum": [
+            "FINK_SQL",
+            "FINK"
+          ]
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.TaskSKetchVO",
+      "description": "任务缩略VO"
+    },
+    "TaskSideVO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnVO"
+          }
+        },
+        "columnsText": {
+          "type": "string"
+        },
+        "dsId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dsName": {
+          "type": "string"
+        },
+        "dsType": {
+          "type": "string",
+          "enum": [
+            "MYSQL",
+            "KAFKA",
+            "REDIS",
+            "HBASE",
+            "INFLUXDB",
+            "HIVE",
+            "ELASTICSEARCH",
+            "PRESTO"
+          ]
+        },
+        "parallelism": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "primaryKey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "table": {
+          "type": "string"
+        },
+        "tableName": {
+          "type": "string"
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.TaskSideVO",
+      "description": "维表配置"
+    },
+    "TaskSinkVO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnVO"
+          }
+        },
+        "columnsText": {
+          "type": "string"
+        },
+        "dsId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dsName": {
+          "type": "string"
+        },
+        "dsType": {
+          "type": "string",
+          "enum": [
+            "MYSQL",
+            "KAFKA",
+            "REDIS",
+            "HBASE",
+            "INFLUXDB",
+            "HIVE",
+            "ELASTICSEARCH",
+            "PRESTO"
+          ]
+        },
+        "parallelism": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "primaryKey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "table": {
+          "type": "string"
+        },
+        "tableName": {
+          "type": "string"
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.TaskSinkVO",
+      "description": "结果表配置"
+    },
+    "TaskSourceVO": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColumnVO"
+          }
+        },
+        "columnsText": {
+          "type": "string"
+        },
+        "dsId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dsName": {
+          "type": "string"
+        },
+        "dsType": {
+          "type": "string",
+          "enum": [
+            "MYSQL",
+            "KAFKA",
+            "REDIS",
+            "HBASE",
+            "INFLUXDB",
+            "HIVE",
+            "ELASTICSEARCH",
+            "PRESTO"
+          ]
+        },
+        "groupId": {
+          "type": "string"
+        },
+        "offsetReset": {
+          "type": "string"
+        },
+        "parallelism": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "table": {
+          "type": "string"
+        },
+        "tableName": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.TaskSourceVO",
+      "description": "源表配置"
+    },
+    "TemplateParam": {
+      "type": "object",
+      "required": [
+        "dsName",
+        "dsType",
+        "type"
+      ],
+      "properties": {
+        "dsName": {
+          "type": "string",
+          "example": "ddd",
+          "description": "数据源名称"
+        },
+        "dsType": {
+          "type": "string",
+          "description": "数据源类型",
+          "enum": [
+            "MYSQL",
+            "KAFKA",
+            "REDIS",
+            "HBASE",
+            "INFLUXDB",
+            "HIVE",
+            "ELASTICSEARCH",
+            "PRESTO"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "表类型",
+          "enum": [
+            "source",
+            "side",
+            "sink"
+          ]
+        }
+      },
+      "title": "com.tuya.bling.stream.vo.form.TemplateParam",
+      "description": "Sql模板"
+    }
+  }
+}
