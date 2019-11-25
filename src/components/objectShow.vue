@@ -32,6 +32,10 @@
               <span
                 v-if="value==='object' && info['object'] && info['object'].title"
               >({{info['object'].title}})</span>
+              <span
+                style="color:#888;"
+                v-if="value==='map' && info['mapItem'] && info['mapItem'].title"
+              >&nbsp;(string, {{info['mapItem'].title}})</span>
             </div>
             <div v-else-if="key === 'example'">example: {{value}}</div>
             <div v-else-if="key === 'enum'">
@@ -51,10 +55,14 @@
             <div v-else-if="key === 'items'">
               <object-show :count="curCount" :obj="info['items']" style="margin-top:10px;"></object-show>
             </div>
+            <div v-else-if="key === 'mapItem'">
+              <object-show :count="curCount" :obj="info['mapItem']" style="margin-top:10px;"></object-show>
+            </div>
             <div v-else-if="key === '$ref'" style="display:none;"></div>
             <div v-else-if="key === 'required'" style="display:none;"></div>
             <div v-else-if="key === 'title'" style="display:none;"></div>
             <div v-else-if="key === 'properties'" style="display:none;"></div>
+            <div v-else-if="key === 'additionalProperties'" style="display:none;"></div>
             <div v-else>{{value}}</div>
           </div>
         </div>

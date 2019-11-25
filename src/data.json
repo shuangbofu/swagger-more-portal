@@ -80,6 +80,126 @@
         "deprecated": false
       }
     },
+    "/Test2Service/nodeTest": {
+      "post": {
+        "tags": [
+          "其他接口"
+        ],
+        "summary": "循环引用测试",
+        "operationId": "nodeTestUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "parent",
+            "description": "父节点",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Node"
+            },
+            "className": "com.tuya.bling.api.Node"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Node"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/Test2Service/test": {
+      "post": {
+        "tags": [
+          "其他接口"
+        ],
+        "summary": "测试Map",
+        "operationId": "testUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "flag",
+            "in": "query",
+            "description": "flag",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false,
+            "className": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/Test2Service/test2": {
+      "post": {
+        "tags": [
+          "其他接口"
+        ],
+        "summary": "测试Map",
+        "operationId": "test2UsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "map",
+            "in": "query",
+            "description": "map",
+            "required": false,
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/Task"
+              }
+            },
+            "allowEmptyValue": false,
+            "className": "java.util.Map<java.lang.String,com.tuya.bling.stream.persist.model.Task>"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/TestService/add": {
       "post": {
         "tags": [
@@ -219,46 +339,6 @@
         "deprecated": false
       }
     },
-    "/TestService/nodeTest": {
-      "post": {
-        "tags": [
-          "任务相关接口"
-        ],
-        "summary": "循环引用测试",
-        "operationId": "nodeTestUsingPOST",
-        "consumes": [
-          "application/json;charset=UTF-8"
-        ],
-        "produces": [
-          "application/json;charset=UTF-8",
-          "text/plain"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "parent",
-            "description": "父节点",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Node"
-            },
-            "className": "com.tuya.bling.api.Node"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Node"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/TestService/remove": {
       "post": {
         "tags": [
@@ -295,37 +375,29 @@
         },
         "deprecated": false
       }
-    },
-    "/TestService/test": {
-      "post": {
-        "tags": [
-          "任务相关接口"
-        ],
-        "summary": "测试Map",
-        "operationId": "testUsingPOST",
-        "consumes": [
-          "application/json;charset=UTF-8"
-        ],
-        "produces": [
-          "application/json;charset=UTF-8",
-          "text/plain"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/definitions/Task"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
     }
   },
   "definitions": {
+    "AnotherNode": {
+      "type": "object",
+      "required": [
+        "anotherNode"
+      ],
+      "properties": {
+        "anotherNode": {
+          "description": "another",
+          "$ref": "#/definitions/AnotherNode"
+        },
+        "nodeMaps": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Node"
+          }
+        }
+      },
+      "title": "com.tuya.bling.api.AnotherNode",
+      "description": "另一个节点"
+    },
     "ColumnVO": {
       "type": "object",
       "properties": {
@@ -341,6 +413,10 @@
     "Node": {
       "type": "object",
       "properties": {
+        "anotherNode": {
+          "description": "another",
+          "$ref": "#/definitions/AnotherNode"
+        },
         "children": {
           "type": "array",
           "description": "子节点结合",
@@ -353,9 +429,23 @@
           "format": "int64",
           "description": "节点ID"
         },
+        "mapTasks": {
+          "type": "object",
+          "description": "测试map参数",
+          "additionalProperties": {
+            "$ref": "#/definitions/Task"
+          }
+        },
         "name": {
           "type": "string",
           "description": "节点名称"
+        },
+        "nodeMaps": {
+          "type": "object",
+          "description": "测试map2",
+          "additionalProperties": {
+            "$ref": "#/definitions/Node"
+          }
         }
       },
       "title": "com.tuya.bling.api.Node",

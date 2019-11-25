@@ -261,6 +261,8 @@ export default {
     exampleValue() {
       return row => {
         switch (row.type) {
+          case "boolean":
+            return false;
           case "string":
             return '""';
           case "integer":
@@ -280,7 +282,7 @@ export default {
             if (row.schema) {
               return row.schema.$ref.replace("#/definitions/", "");
             } else if (row.items && row.items.additionalProperties) {
-              return row.items.additionalProperties.items.$ref.replace(
+              return row.items.additionalProperties.$ref.replace(
                 "#/definitions/",
                 ""
               );
@@ -507,6 +509,13 @@ export default {
             items: this.getParameterDefaultStructure(parameter.items)
           };
         case "object":
+          if (parameter.additionalProperties) {
+            parameter.type = "map";
+            parameter.mapItem = this.getParameterDefaultStructure(
+              parameter.additionalProperties
+            );
+            return parameter;
+          }
           let obj = {};
           const _class = parameter;
           for (let key in _class.properties) {
