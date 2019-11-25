@@ -49,6 +49,7 @@
           </div>
           <div v-else-if="key === '$ref'" style="display:none;"></div>
           <div v-else-if="key === 'required'" style="display:none;"></div>
+          <div v-else-if="key === 'title'" style="display:none;"></div>
           <div v-else-if="key === 'properties'" style="display:none;"></div>
           <div v-else>{{value}}</div>
         </div>

@@ -207,7 +207,6 @@ export default {
   },
   data() {
     return {
-      fetchTimeRefresh: false,
       fetchDefinitionTimes: [],
       drawer: false,
       requestPreTimes: [],
@@ -428,7 +427,7 @@ export default {
     },
     objectShow(name, type) {
       // 根据类名称获取类
-      this.fetchTimeRefresh = true;
+      this.fetchDefinitionTimes = [];
       let ref = { ...this.data.definitions[name] };
       const obj = this.getParameterDefaultStructure(ref);
       this.exampleRef = obj;
@@ -464,13 +463,13 @@ export default {
       }
       // 初始化requestData
       if (!this.requestDatas[val]) {
-        this.fetchTimeRefresh = true;
+        this.fetchDefinitionTimes = [];
         this.requestDatas[val] = this.initDefaultRequestData(val);
       }
       // 初始化responseData
       if (!this.responseDatas[val]) {
         // 每次重置取对象数
-        this.fetchTimeRefresh = true;
+        this.fetchDefinitionTimes = [];
         const defaultResponse = this.apiTabs.find(item => item.name === val)
           .responses;
         let res;
@@ -544,8 +543,8 @@ export default {
           let array = [];
           const items = parameter.items;
           if (
-            this.fetchDefinitionTimes[items.$ref] > 2 &&
-            !this.fetchTimeRefresh
+            this.fetchDefinitionTimes[items.$ref] &&
+            this.fetchDefinitionTimes[items.$ref] > 2
           ) {
             return array;
           }
@@ -598,18 +597,16 @@ export default {
       }
     },
     getDefinitionObj(refName) {
-      if (this.fetchTimeRefresh) {
+      if (!this.fetchDefinitionTimes[refName]) {
         this.fetchDefinitionTimes[refName] = 0;
-        this.fetchTimeRefresh = false;
       }
       // 递归嵌套取对象在取对象的时候做限制
       this.fetchDefinitionTimes[refName] += 1;
-
       if (refName.includes(".")) {
         refName = refName.slice(refName.lastIndexOf(".") + 1);
       }
       const obj = this.data.definitions[refName.replace("#/definitions/", "")];
-      if (this.fetchDefinitionTimes[refName] > 2) {
+      if (this.fetchDefinitionTimes[refName] > 1) {
         return {
           title: obj.title
         };
