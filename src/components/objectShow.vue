@@ -1,66 +1,76 @@
 <template>
   <div class="obj">
-    <div class="description" v-if="obj.description">
+    <div
+      @click="unfold = !unfold"
+      v-if="obj.title && curCount >1"
+      style=" cursor: pointer; user-select:none; color:#0abf5b; font-weight: 700; margin-top: 10px;margin-bottom: 16px;"
+    >
+      Object
+      <i style="font-weight:700;" :class="unfold?'el-icon-arrow-down':'el-icon-arrow-right'"></i>
+    </div>
+    <div class="description" v-if="obj.description && (unfold || curCount ===1)">
       <div class="name">description:</div>
       <span>{{obj.description}}</span>
     </div>
-    <div v-for="(info, name) in obj.properties" :key="name" class="property">
-      <div class="name">
-        {{name}}
-        <span
-          style="color: rgb(239, 83, 80);"
-        >{{(obj.required && obj.required.includes(name)) ? '*':''}}</span>
-      </div>
-      <div class="info">
-        <div class="key-value" v-for="(value, key) in info" :key="key" :class="key">
-          <div v-if="key === 'type'">
-            <span v-if="value!=='object'">{{value}}</span>
-            <span v-if="info['format']" style="color:#888;">&nbsp;(${{info['format']}})</span>
-            <span
-              style="color:#888;"
-              v-if="value=='array' && info['items'] && (info['items'].title || info['items'].type || info['items'].$ref)"
-            >&nbsp;({{info['items'].title || info['items'].type || info['items'].$ref.replace('#/definitions/','')}})</span>
-            <span
-              v-if="value==='object' && info['object'] && info['object'].title"
-            >({{info['object'].title}})</span>
+    <template v-if="(unfold || curCount ===1)">
+      <div v-for="(info, name) in obj.properties" :key="name" class="property">
+        <div class="name">
+          {{name}}
+          <span
+            style="color: rgb(239, 83, 80);"
+          >{{(obj.required && obj.required.includes(name)) ? '*':''}}</span>
+        </div>
+        <div class="info">
+          <div class="key-value" v-for="(value, key) in info" :key="key" :class="key">
+            <div v-if="key === 'type'">
+              <span v-if="value!=='object'">{{value}}</span>
+              <span v-if="info['format']" style="color:#888;">&nbsp;(${{info['format']}})</span>
+              <span
+                style="color:#888;"
+                v-if="value=='array' && info['items'] && (info['items'].title || info['items'].type || info['items'].$ref)"
+              >&nbsp;({{info['items'].title || info['items'].type || info['items'].$ref.replace('#/definitions/','')}})</span>
+              <span
+                v-if="value==='object' && info['object'] && info['object'].title"
+              >({{info['object'].title}})</span>
+            </div>
+            <div v-else-if="key === 'example'">example: {{value}}</div>
+            <div v-else-if="key === 'enum'">
+              <span style="font-weight: 600;margin-top: 4px;">Enum:</span>
+              <span style="margin-top: 4px;">
+                [
+                <span v-for="(item, index) in info['enum']" :key="index">
+                  {{item}}
+                  <span v-if="index < info['enum'].length -1">,</span>
+                  &nbsp;
+                </span>]
+              </span>
+            </div>
+            <div v-else-if="key === 'object'">
+              <object-show :count="curCount" :obj="info['object']" style="margin-top:10px;"></object-show>
+            </div>
+            <div v-else-if="key === 'items'">
+              <object-show :count="curCount" :obj="info['items']" style="margin-top:10px;"></object-show>
+            </div>
+            <div v-else-if="key === '$ref'" style="display:none;"></div>
+            <div v-else-if="key === 'required'" style="display:none;"></div>
+            <div v-else-if="key === 'title'" style="display:none;"></div>
+            <div v-else-if="key === 'properties'" style="display:none;"></div>
+            <div v-else>{{value}}</div>
           </div>
-          <div v-else-if="key === 'example'">example: {{value}}</div>
-          <div v-else-if="key === 'enum'">
-            <span style="font-weight: 600;margin-top: 4px;">Enum:</span>
-            <span style="margin-top: 4px;">
-              [
-              <span v-for="(item, index) in info['enum']" :key="index">
-                {{item}}
-                <span v-if="index < info['enum'].length -1">,</span>
-                &nbsp;
-              </span>]
-            </span>
-          </div>
-          <div v-else-if="key === 'object'">
-            <div style="color:#666; font-weight: 600; margin-top: 10px;margin-bottom: 10px;">Object</div>
-            <object-show :count="curCount" :obj="info['object']" style="margin-top:10px;"></object-show>
-          </div>
-          <div v-else-if="key === 'items'">
-            <div
-              v-if="info['items'].type === 'object'"
-              style="color:#666; font-weight: 600; margin-top: 6px;margin-bottom: 18px;"
-            >Object</div>
-            <object-show :count="curCount" :obj="info['items']" style="margin-top:10px;"></object-show>
-          </div>
-          <div v-else-if="key === '$ref'" style="display:none;"></div>
-          <div v-else-if="key === 'required'" style="display:none;"></div>
-          <div v-else-if="key === 'title'" style="display:none;"></div>
-          <div v-else-if="key === 'properties'" style="display:none;"></div>
-          <div v-else>{{value}}</div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
   props: ["obj", "count"],
+  data() {
+    return {
+      unfold: false
+    };
+  },
   components: { ObjectShow: () => import("@/components/objectShow.vue") },
   computed: {
     curCount() {

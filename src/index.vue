@@ -272,7 +272,7 @@ export default {
             const arrayType = row.items.type;
             if (arrayType === "string") {
               return '[""]';
-            } else if (arrayType === "int") {
+            } else if (arrayType === "integer") {
               return "[0]";
             }
             return "";
@@ -294,6 +294,7 @@ export default {
     init() {
       // 初始化所有接口数据
       this.fetchData(data => {
+        document.title = data.info.title;
         data.info.basePath = data.basePath;
         this.data = data;
         data.definitions = data.definitions || [];

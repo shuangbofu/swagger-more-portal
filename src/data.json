@@ -295,6 +295,34 @@
         },
         "deprecated": false
       }
+    },
+    "/TestService/test": {
+      "post": {
+        "tags": [
+          "任务相关接口"
+        ],
+        "summary": "测试Map",
+        "operationId": "testUsingPOST",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8",
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
