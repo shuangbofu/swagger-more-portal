@@ -301,6 +301,7 @@ export default {
         this.data = data;
         data.definitions = data.definitions || [];
         let tags = data.tags;
+        tags.push({ name: "默认接口", description: "default", apis: [] });
         let apis = [];
         for (let pathName in data.paths) {
           let path = data.paths[pathName].post;
@@ -310,7 +311,7 @@ export default {
             name: pathName,
             parameters: path.parameters || []
           };
-          path.tags.forEach(tagName => {
+          (path.tags || ["默认接口"]).forEach(tagName => {
             let tag = tags.find(tag => tag.name === tagName);
             if (!tag.apis) {
               tag.apis = [];
@@ -371,8 +372,9 @@ export default {
         });
         return;
       }
+      const basePath = this.info.basePath === "/" ? "" : this.info.basePath;
       const url =
-        this.info.basePath +
+        basePath +
         this.apiTabs.find(item => item.name === this.openedApiIndex).name;
       this.loading = true;
       const start = new Date().getTime();
