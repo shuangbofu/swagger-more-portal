@@ -25,7 +25,7 @@
     "text/plain"
   ],
   "paths": {
-    "/Test2Service/getCount": {
+    "/dubbo/Test2Service/getCount": {
       "post": {
         "tags": [
           "其他接口"
@@ -51,7 +51,7 @@
         "deprecated": false
       }
     },
-    "/Test2Service/getStatus": {
+    "/dubbo/Test2Service/getStatus": {
       "post": {
         "tags": [
           "其他接口"
@@ -80,7 +80,7 @@
         "deprecated": false
       }
     },
-    "/Test2Service/nodeTest": {
+    "/dubbo/Test2Service/nodeTest": {
       "post": {
         "tags": [
           "其他接口"
@@ -120,7 +120,7 @@
         "deprecated": false
       }
     },
-    "/Test2Service/test": {
+    "/dubbo/Test2Service/test": {
       "post": {
         "tags": [
           "其他接口"
@@ -159,7 +159,7 @@
         "deprecated": false
       }
     },
-    "/Test2Service/test2": {
+    "/dubbo/Test2Service/test2": {
       "post": {
         "tags": [
           "其他接口"
@@ -200,7 +200,7 @@
         "deprecated": false
       }
     },
-    "/TestService/add": {
+    "/dubbo/TestService/add": {
       "post": {
         "tags": [
           "任务相关接口"
@@ -237,7 +237,7 @@
         "deprecated": false
       }
     },
-    "/TestService/editTask": {
+    "/dubbo/TestService/editTask": {
       "post": {
         "tags": [
           "任务相关接口"
@@ -274,7 +274,7 @@
         "deprecated": false
       }
     },
-    "/TestService/getSqlTemplate": {
+    "/dubbo/TestService/getSqlTemplate": {
       "post": {
         "tags": [
           "任务相关接口"
@@ -311,7 +311,7 @@
         "deprecated": false
       }
     },
-    "/TestService/getTaskList": {
+    "/dubbo/TestService/getTaskList": {
       "post": {
         "tags": [
           "任务相关接口"
@@ -339,7 +339,7 @@
         "deprecated": false
       }
     },
-    "/TestService/remove": {
+    "/dubbo/TestService/remove": {
       "post": {
         "tags": [
           "任务相关接口"

@@ -67,11 +67,11 @@
             <div class="api-content-container">
               <div class="api-info-item">
                 <span class="info-item-key">接口名：</span>
-                <span class="info-item-value">{{api.name.split('/')[1]}}</span>
+                <span class="info-item-value">{{api.name.split('/')[2]}}</span>
                 <span class="info-item-key">方法名：</span>
                 <span
                   :class="'info-item-value method-name ' + (api.deprecated ? 'deprecated': '')"
-                >{{api.name.split('/')[2]}} （{{api.summary}}）</span>
+                >{{api.name.split('/')[3]}} （{{api.summary}}）</span>
                 <div v-if="api.description" style="padding-top: 10px;">
                   <span class="info-item-value" v-html="api.description"></span>
                 </div>
